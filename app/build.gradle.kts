@@ -5,6 +5,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -71,6 +72,10 @@ android {
 dependencies {
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    implementation(platform("io.arrow-kt:arrow-stack:1.2.1"))
+    implementation("io.arrow-kt:arrow-core")
+    implementation("io.arrow-kt:arrow-fx-coroutines")
     
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12")
 
