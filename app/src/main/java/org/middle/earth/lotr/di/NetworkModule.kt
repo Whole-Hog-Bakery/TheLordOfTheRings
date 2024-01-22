@@ -33,7 +33,7 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 private const val TAG = "NetworkModule"
-private const val NETWORK_TIME_OUT = 6_000L
+const val NETWORK_TIME_OUT = 6_000L
 
 
 data class UserAgent(val value: String)
@@ -57,6 +57,7 @@ class NetworkModule {
 
         expectSuccess = true
 
+        followRedirects = false
 
         install(HttpTimeout) {
             requestTimeoutMillis = NETWORK_TIME_OUT
@@ -135,7 +136,7 @@ class NetworkModule {
                     "Android SDK ${Build.VERSION.SDK_INT}) " +
                     getDeviceName()
         )
-    
+
     /******************************************************************************************************************************
      *
      * U S E R  A G E N T

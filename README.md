@@ -1,10 +1,8 @@
-# TheLordOfTheRings
-Example Android Application
-
 The Lord Of The Rings
 ==================
 
 This is the repository for the [The Lord Of The Rings] app.
+
 It is a **work in progress** 🚧.
 
 **The Lord Of The Rings** is a read only functional Android app built entirely with Kotlin and Jetpack Compose. It
