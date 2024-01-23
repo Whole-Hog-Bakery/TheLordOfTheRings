@@ -23,7 +23,12 @@ import io.ktor.client.request.header
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.json.Json
+import org.middle.earth.lotr.BuildConfig
+import org.middle.earth.lotr.BuildConfig.BUILD_TYPE
+import org.middle.earth.lotr.BuildConfig.FLAVOR
 import org.middle.earth.lotr.BuildConfig.THE_ONE_API_ACCESS_TOKEN
 import org.middle.earth.lotr.data.remote.PingHttpApi
 import org.middle.earth.lotr.data.remote.PingHttpService
@@ -35,6 +40,8 @@ import javax.inject.Singleton
 private const val TAG = "NetworkModule"
 const val NETWORK_TIME_OUT = 6_000L
 
+@OptIn(ExperimentalCoroutinesApi::class)
+val NETWORK = Dispatchers.IO.limitedParallelism(10)
 
 data class UserAgent(val value: String)
 
@@ -65,8 +72,16 @@ class NetworkModule {
             socketTimeoutMillis = NETWORK_TIME_OUT
         }
 
+        if (BuildConfig.DEBUG) install(Logging) {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    Log.d(TAG, "log() called with: message = $message")
+                }
+            }
+            level = LogLevel.ALL
+        }
+
         defaultRequest {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
             header(HttpHeaders.ContentType, ContentType.Application.Json)
             header(HttpHeaders.Accept, "no-cache")
         }

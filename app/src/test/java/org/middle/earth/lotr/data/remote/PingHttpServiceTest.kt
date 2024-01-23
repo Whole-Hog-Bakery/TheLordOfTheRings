@@ -36,7 +36,7 @@ class PingHttpServiceTest {
         val httpClient = getHttpClient(mockEngineNoContent)
 
         val test = runBlocking {
-            PingHttpService(httpClient).ping().getOrNull()
+            PingHttpService(httpClient).ping()
         }
 
         Assert.assertEquals(test!!.status == HttpStatusCode.NoContent, true)
@@ -48,7 +48,7 @@ class PingHttpServiceTest {
         val httpClient = getHttpClient(mockEnginePermanentRedirect)
 
         val test = runBlocking {
-            PingHttpService(httpClient).ping().isLeft()
+            PingHttpService(httpClient).ping()
         }
 
         Assert.assertEquals(test, true)
@@ -60,7 +60,7 @@ class PingHttpServiceTest {
         val httpClient = getHttpClient(mockEngineBadRequest)
 
         val test = runBlocking {
-            PingHttpService(httpClient).ping().isLeft()
+            PingHttpService(httpClient).ping()
         }
 
         Assert.assertEquals(test, true)
@@ -72,7 +72,7 @@ class PingHttpServiceTest {
         val httpClient = getHttpClient(mockEngineServiceUnavailable)
 
         val test = runBlocking {
-            PingHttpService(httpClient).ping().isLeft()
+            PingHttpService(httpClient).ping()
         }
 
         Assert.assertEquals(test, true)

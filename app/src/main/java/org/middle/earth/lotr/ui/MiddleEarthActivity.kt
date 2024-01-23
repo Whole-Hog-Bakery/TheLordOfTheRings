@@ -18,6 +18,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import org.middle.earth.lotr.feature.character.CharacterScreen
 import org.middle.earth.lotr.surveillance.NetworkState
 import org.middle.earth.lotr.surveillance.NetworkSurveillance
 import org.middle.earth.lotr.ui.theme.TheLordOfTheRingsTheme
@@ -50,27 +51,11 @@ class MiddleEarthActivity : ComponentActivity() {
                 }
             }
             TheLordOfTheRingsTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                    CharacterScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TheLordOfTheRingsTheme {
-        Greeting("Android")
     }
 }

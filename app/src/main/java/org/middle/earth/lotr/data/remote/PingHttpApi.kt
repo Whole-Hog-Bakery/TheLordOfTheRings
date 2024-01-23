@@ -4,5 +4,6 @@ import arrow.core.Either
 import io.ktor.client.statement.HttpResponse
 
 interface PingHttpApi {
-    suspend fun ping(): Either<Throwable, HttpResponse>
+    //suspend fun ping(): Either<Throwable, HttpResponse>
+    suspend fun ping(): HttpResponse
 }

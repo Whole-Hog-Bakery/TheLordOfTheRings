@@ -40,7 +40,7 @@ data class Docs (
     val race : String,
 
     @SerialName("gender")
-    val gender : String,
+    val gender : String? = null,
 
     @SerialName("birth")
     val birth : String,
@@ -61,5 +61,5 @@ data class Docs (
     val name : String,
 
     @SerialName("wikiUrl")
-    val wikiUrl : String
+    val wikiUrl : String? = null
 )
