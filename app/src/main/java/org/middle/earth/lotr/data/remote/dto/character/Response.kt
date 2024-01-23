@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class CharacterResponse (
 
     @SerialName("docs")
-    val docs : List<Docs>,
+    val characters : List<Character>,
 
     @SerialName("total")
     val total : Int,
@@ -18,7 +18,7 @@ data class CharacterResponse (
     val limit : Int,
 
     @SerialName("offset")
-    val offset : Int,
+    val offset : Int? = null,
 
     @SerialName("page")
     val page : Int,
@@ -29,7 +29,7 @@ data class CharacterResponse (
 
 @Keep
 @Serializable
-data class Docs (
+data class Character (
     @SerialName("_id")
     val characterId : String,
 
