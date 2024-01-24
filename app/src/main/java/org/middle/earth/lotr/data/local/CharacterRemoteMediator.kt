@@ -50,7 +50,7 @@ class CharacterRemoteMediator(
 
                 val nextPage = if (response.characters.isEmpty()) null else page + 1
 
-                val rows = response.characters.map { character ->
+                val rows = response.characters.filter { character -> character.wikiUrl != null }.map { character ->
                     with(character) {
                         CharacterDO(
                             characterId = characterId,
