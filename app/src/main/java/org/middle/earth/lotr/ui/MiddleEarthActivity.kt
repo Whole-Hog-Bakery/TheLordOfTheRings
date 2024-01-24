@@ -3,11 +3,14 @@ package org.middle.earth.lotr.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -39,7 +42,7 @@ class MiddleEarthActivity : ComponentActivity() {
 
         setContent {
 
-
+            val windowSize = computeWindowSizeClass()
             val connectionState by networkSurveillance.get().connectionFlow.collectAsState(initial = NetworkState.Connected)
 
             val isNetworkConnected by remember {
@@ -51,9 +54,15 @@ class MiddleEarthActivity : ComponentActivity() {
                 }
             }
             TheLordOfTheRingsTheme {
-
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    CharacterScreen()
+                CompositionLocalProvider(
+                    LocalNetworkConnectedComposition provides isNetworkConnected,
+                    LocalWindowSizeClassComposition provides windowSize,
+                ) {
+                    Box(Modifier.safeDrawingPadding()) {
+                        MiddleEarthScreen() {
+                            finishAffinity()
+                        }
+                    }
                 }
             }
         }
