@@ -65,6 +65,7 @@ fun CharacterScreen(
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(start = 4.dp, end = 4.dp),
         verticalArrangement = Arrangement.spacedBy(1.dp)
     ) {
 
