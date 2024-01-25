@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.middle.earth.lotr.data.local.MiddleEarthRepository
 import org.middle.earth.lotr.data.local.TheLordOfTheRingsDatabase
 import org.middle.earth.lotr.data.remote.PingHttpApi
 import org.middle.earth.lotr.data.remote.TheOneApiHttpApi
@@ -16,6 +17,10 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideCharacterRepository(pingService: PingHttpApi, theOneApiService: TheOneApiHttpApi, database: TheLordOfTheRingsDatabase): CharacterRepository =
-        CharacterRepository(pingService, theOneApiService, database)
+    fun provideMiddleEarthRepository(pingService: PingHttpApi, theOneApiService: TheOneApiHttpApi, database: TheLordOfTheRingsDatabase): MiddleEarthRepository =
+        MiddleEarthRepository(pingService, theOneApiService, database)
+    @Provides
+    @Singleton
+    fun provideCharacterRepository(middleEarthRepository: MiddleEarthRepository): CharacterRepository =
+        CharacterRepository(middleEarthRepository)
 }

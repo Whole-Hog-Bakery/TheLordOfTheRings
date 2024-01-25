@@ -5,19 +5,19 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import io.ktor.client.call.body
-import org.middle.earth.lotr.data.remote.TheOneApiHttpApi
 import org.middle.earth.lotr.data.remote.dto.character.CharacterResponse
 import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class CharacterRemoteMediator(
-    private val service: TheOneApiHttpApi,
-    private val database: TheLordOfTheRingsDatabase
+    private val repository: MiddleEarthRepository
 ) : RemoteMediator<Int, CharacterDO>() {
 
-    private val remoteKeyDAO = database.remoteKeyDAO()
-    private val characterDAO = database.characterDAO()
+    private val remoteKeyDAO = repository.database.remoteKeyDAO()
+    private val characterDAO = repository.database.characterDAO()
 
     override suspend fun initialize(): InitializeAction {
         val remoteKey = remoteKeyDAO.select() ?: return InitializeAction.LAUNCH_INITIAL_REFRESH
@@ -43,9 +43,9 @@ class CharacterRemoteMediator(
                 }
             }
 
-            val response: CharacterResponse = service.character(page = page).body()
+            val response: CharacterResponse = repository.character(page = page)?.body() ?: return MediatorResult.Error(RuntimeException("network call failed"))
 
-            database.withTransaction {
+            repository.database.withTransaction {
                 if (loadType == LoadType.REFRESH) characterDAO.delete()
 
                 val nextPage = if (response.characters.isEmpty()) null else page + 1
@@ -74,6 +74,7 @@ class CharacterRemoteMediator(
 
             MediatorResult.Success(endOfPaginationReached = response.characters.isEmpty())
         } catch (e: Exception) {
+            Firebase.crashlytics.recordException(e)
             return MediatorResult.Error(e)
         }
     }

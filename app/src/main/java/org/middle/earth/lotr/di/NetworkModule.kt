@@ -11,7 +11,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
-import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -27,8 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.serialization.json.Json
 import org.middle.earth.lotr.BuildConfig
-import org.middle.earth.lotr.BuildConfig.BUILD_TYPE
-import org.middle.earth.lotr.BuildConfig.FLAVOR
 import org.middle.earth.lotr.BuildConfig.THE_ONE_API_ACCESS_TOKEN
 import org.middle.earth.lotr.data.remote.PingHttpApi
 import org.middle.earth.lotr.data.remote.PingHttpService

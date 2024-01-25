@@ -4,8 +4,8 @@ import io.ktor.client.statement.HttpResponse
 
 interface TheOneApiHttpApi {
 
-    suspend fun character(page: Int): HttpResponse
+    suspend fun character(page: Int): HttpResponse?
 
-    suspend fun quote(): HttpResponse
+    suspend fun quote(): HttpResponse?
 
 }

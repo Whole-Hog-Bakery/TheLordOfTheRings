@@ -19,24 +19,4 @@ data class TheOneApiHttpService @Inject constructor(private val client: HttpClie
 
     override suspend fun quote(): HttpResponse = client.get(urlString = LotrHttpRoute.QUOTE)
 
-//    override suspend fun character(): Either<Throwable, HttpResponse> = either {
-//        Either.catch { client.get(urlString = LotrHttpRoute.CHARACTER) }
-//            .onLeft { networkException ->
-//                Log.e(TAG, "get Characters failed", networkException)
-//                Firebase.crashlytics.recordException(networkException)
-//            }
-//            .onRight { }
-//            .bind()
-//    }
-//
-//
-//    override suspend fun quote(): Either<Throwable, HttpResponse> = either {
-//        Either.catch { client.get(urlString = LotrHttpRoute.QUOTE) }
-//            .onLeft { networkException ->
-//                Log.e(TAG, "get Quotes failed", networkException)
-//                Firebase.crashlytics.recordException(networkException)
-//            }
-//            .onRight { }
-//            .bind()
-//    }
 }
