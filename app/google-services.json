@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223626294306",
+    "project_id": "the-lord-of-the-rings-67ed2",
+    "storage_bucket": "the-lord-of-the-rings-67ed2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223626294306:android:891fb62a9c6f03d417c67b",
+        "android_client_info": {
+          "package_name": "org.middle.earth.lotr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9WlYhffAVArcGRwqopE6VTCoYOBja2_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
