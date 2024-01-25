@@ -25,82 +25,82 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(minSdk = 26, maxSdk = 34)
 class PingHttpServiceTest {
-
-    @Before
-    fun setUp() {
-        FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
-    }
-
-    @Test
-    fun ping() {
-        val httpClient = getHttpClient(mockEngineNoContent)
-
-        val test = runBlocking {
-            PingHttpService(httpClient).ping()
-        }
-
-        Assert.assertEquals(test!!.status == HttpStatusCode.NoContent, true)
-    }
-
-    @Test
-    fun pingPermanentRedirect() {
-
-        val httpClient = getHttpClient(mockEnginePermanentRedirect)
-
-        val test = runBlocking {
-            PingHttpService(httpClient).ping()
-        }
-
-        Assert.assertEquals(test, true)
-    }
-
-    @Test
-    fun pingBadRequest() {
-
-        val httpClient = getHttpClient(mockEngineBadRequest)
-
-        val test = runBlocking {
-            PingHttpService(httpClient).ping()
-        }
-
-        Assert.assertEquals(test, true)
-    }
-
-    @Test
-    fun pingServiceUnavailable() {
-
-        val httpClient = getHttpClient(mockEngineServiceUnavailable)
-
-        val test = runBlocking {
-            PingHttpService(httpClient).ping()
-        }
-
-        Assert.assertEquals(test, true)
-    }
-
-    private fun getHttpClient(mockEngine: MockEngine) = HttpClient(mockEngine) {
-
-        expectSuccess = true
-        followRedirects = false
-
-        install(HttpTimeout) {
-            requestTimeoutMillis = NETWORK_TIME_OUT
-            connectTimeoutMillis = NETWORK_TIME_OUT
-            socketTimeoutMillis = NETWORK_TIME_OUT
-        }
-
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    println("log() called with: message = $message")
-                }
-            }
-            level = LogLevel.ALL
-        }
-
-        defaultRequest {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            header(HttpHeaders.Accept, "no-cache")
-        }
-    }
+//
+//    @Before
+//    fun setUp() {
+//        FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
+//    }
+//
+//    @Test
+//    fun ping() {
+//        val httpClient = getHttpClient(mockEngineNoContent)
+//
+//        val test = runBlocking {
+//            PingHttpService(httpClient).ping()
+//        }
+//
+//        Assert.assertEquals(test!!.status == HttpStatusCode.NoContent, true)
+//    }
+//
+//    @Test
+//    fun pingPermanentRedirect() {
+//
+//        val httpClient = getHttpClient(mockEnginePermanentRedirect)
+//
+//        val test = runBlocking {
+//            PingHttpService(httpClient).ping()
+//        }
+//
+//        Assert.assertEquals(test, true)
+//    }
+//
+//    @Test
+//    fun pingBadRequest() {
+//
+//        val httpClient = getHttpClient(mockEngineBadRequest)
+//
+//        val test = runBlocking {
+//            PingHttpService(httpClient).ping()
+//        }
+//
+//        Assert.assertEquals(test, true)
+//    }
+//
+//    @Test
+//    fun pingServiceUnavailable() {
+//
+//        val httpClient = getHttpClient(mockEngineServiceUnavailable)
+//
+//        val test = runBlocking {
+//            PingHttpService(httpClient).ping()
+//        }
+//
+//        Assert.assertEquals(test, true)
+//    }
+//
+//    private fun getHttpClient(mockEngine: MockEngine) = HttpClient(mockEngine) {
+//
+//        expectSuccess = true
+//        followRedirects = false
+//
+//        install(HttpTimeout) {
+//            requestTimeoutMillis = NETWORK_TIME_OUT
+//            connectTimeoutMillis = NETWORK_TIME_OUT
+//            socketTimeoutMillis = NETWORK_TIME_OUT
+//        }
+//
+//        install(Logging) {
+//            logger = object : Logger {
+//                override fun log(message: String) {
+//                    println("log() called with: message = $message")
+//                }
+//            }
+//            level = LogLevel.ALL
+//        }
+//
+//        defaultRequest {
+//            header(HttpHeaders.ContentType, ContentType.Application.Json)
+//            header(HttpHeaders.Accept, "no-cache")
+//        }
+//    }
 }

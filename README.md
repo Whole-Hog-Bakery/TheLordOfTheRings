@@ -86,3 +86,5 @@ theres more pure unit tests required.
 i always attempt to **only** use pure junits as instrumented tests perform very badly and
 take too much time and resources, especially when they are executed as part of the CI/CD pipeline.
 
+i wanted to showcase `io.mockk` in my junits however didnt have sufficient time to do it justice.
+
