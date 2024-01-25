@@ -46,7 +46,7 @@ Registry:
 
 The MVI application employs the following
 
-* Ktor client for remate restful api calls
+* Ktor client for remote restful api calls
 * Arrow-kt for Either error handling
 * Room for local persistence
 * Compose for all ui
@@ -64,7 +64,7 @@ modularise the application as follows:-
 * shared (*mvi*, *covert*, *shared*)
 * feature (*character*, *quote*, *book*, *movie*)
 
-* database sub module contains slqite dao's and the database definition
+* database sub module contains sqlite dao's and the database definition
 * workers sub module contains android work manager background workers that synchronise
 all remote data into the local database. there is one worker for each data type available,
 e.g. characterWorker, quoteWorker etc..
@@ -74,8 +74,15 @@ e.g. characterWorker, quoteWorker etc..
 * covert sub module supports local data encryption and employs the google tink library
 * shared sub module contains all common resources required by the rest of the application, 
 e.g. the data model classes for network, database and ui, also any miscellaneous extension functions,
-data model mappers (e.g. `org.mapstruct`)
+data model mappers (e.g. `org.mapstruct`), it also will contain resources such as any required room
+database type converters as well as any required `androidx.startup` initialisers etc..
 
 * character sub module contains all compose, di, viewmodel etc code to display chara
 
+
+# Testing
+
+theres more pure unit tests required.
+i always attempt to **only** use pure junits as instrumented tests perform very badly and
+take too much time and resources, especially when they are executed as part of the CI/CD pipeline.
 
