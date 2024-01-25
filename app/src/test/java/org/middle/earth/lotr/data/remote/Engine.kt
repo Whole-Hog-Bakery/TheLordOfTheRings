@@ -12,6 +12,10 @@ val mockEngineCharactersOk = MockEngine { _ ->
     httpResponseData(HttpStatusCode.OK, CHARACTER_RESPONSE)
 }
 
+val mockEngineCharactersOkEmpty = MockEngine { _ ->
+    httpResponseData(HttpStatusCode.OK, CHARACTER_RESPONSE_EMPTY)
+}
+
 val mockEngineNoContent = MockEngine { _ ->
     httpResponseData(HttpStatusCode.NoContent)
 }
@@ -141,5 +145,15 @@ const val CHARACTER_RESPONSE = """
     "offset": 0,
     "page": 1,
     "pages": 134
+}
+"""
+const val CHARACTER_RESPONSE_EMPTY = """
+    {
+    "docs": [],
+    "total": 0,
+    "limit": 0,
+    "offset": 0,
+    "page": 1,
+    "pages": 0
 }
 """

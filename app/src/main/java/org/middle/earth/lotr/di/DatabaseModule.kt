@@ -14,7 +14,7 @@ import org.middle.earth.lotr.BuildConfig.DEBUG
 import org.middle.earth.lotr.data.local.TheLordOfTheRingsDatabase
 import javax.inject.Singleton
 
-private const val DATABASE_NAME = "lord-of-the-rings-database"
+const val DATABASE_NAME = "lord-of-the-rings-database"
 
 @InstallIn(SingletonComponent::class)
 @Module

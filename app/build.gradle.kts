@@ -124,7 +124,6 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("com.google.android.material:material:1.5.0")
 
-
     implementation("org.slf4j:slf4j-api:2.0.11")
     implementation("org.slf4j:slf4j-simple:2.0.11")
 
@@ -150,9 +149,12 @@ dependencies {
     testImplementation("org.slf4j:slf4j-api:2.0.11")
     testImplementation("org.slf4j:slf4j-simple:2.0.11")
     testImplementation("androidx.test:core:1.5.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("io.ktor:ktor-client-mock:2.3.7")
     testImplementation("io.mockk:mockk:1.13.9")
     testImplementation("org.robolectric:robolectric:4.11.1")
+    testImplementation("app.cash.turbine:turbine:1.0.0")
+    testImplementation( "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
