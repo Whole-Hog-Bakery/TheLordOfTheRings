@@ -41,7 +41,7 @@ class TheOneApiNetworkTest {
 
     @Test
     fun character() {
-        val httpClient = getHttpClient(mockEngineCharactersOk)
+        val httpClient = getTheOneApiHttpClient(mockEngineCharactersOk)
 
         runBlocking {
             val response = TheOneApiHttpService(httpClient).character(1)
@@ -53,7 +53,7 @@ class TheOneApiNetworkTest {
 
     @Test(expected = ClientRequestException::class)
     fun characterBadRequest() {
-        val httpClient = getHttpClient(mockEngineBadRequest)
+        val httpClient = getTheOneApiHttpClient(mockEngineBadRequest)
 
         runBlocking {
             TheOneApiHttpService(httpClient).character(1)
@@ -62,54 +62,56 @@ class TheOneApiNetworkTest {
 
     @Test(expected = ServerResponseException::class)
     fun characterServerResponseException() {
-        val httpClient = getHttpClient(mockEngineServiceUnavailable)
+        val httpClient = getTheOneApiHttpClient(mockEngineServiceUnavailable)
 
         runBlocking {
             TheOneApiHttpService(httpClient).character(1)
         }
     }
 
-    private fun getHttpClient(mockEngine: MockEngine) = HttpClient(mockEngine) {
+}
 
-        expectSuccess = true
 
-        install(ContentNegotiation) {
-            json(
-                Json {
-                    prettyPrint = true
-                    isLenient = true
-                    useAlternativeNames = true
-                    ignoreUnknownKeys = false
-                    encodeDefaults = true
-                }
-            )
-        }
+fun getTheOneApiHttpClient(mockEngine: MockEngine) = HttpClient(mockEngine) {
 
-        install(HttpTimeout) {
-            requestTimeoutMillis = NETWORK_TIME_OUT
-            connectTimeoutMillis = NETWORK_TIME_OUT
-            socketTimeoutMillis = NETWORK_TIME_OUT
-        }
+    expectSuccess = true
 
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    println("log() called with: message = $message")
-                }
+    install(ContentNegotiation) {
+        json(
+            Json {
+                prettyPrint = true
+                isLenient = true
+                useAlternativeNames = true
+                ignoreUnknownKeys = false
+                encodeDefaults = true
             }
-            level = LogLevel.ALL
-        }
+        )
+    }
 
-        install(ResponseObserver) {
-            onResponse { response ->
-                println("providesHttpClient() called with: response = $response\n${response.status.value}")
+    install(HttpTimeout) {
+        requestTimeoutMillis = NETWORK_TIME_OUT
+        connectTimeoutMillis = NETWORK_TIME_OUT
+        socketTimeoutMillis = NETWORK_TIME_OUT
+    }
+
+    install(Logging) {
+        logger = object : Logger {
+            override fun log(message: String) {
+                println("log() called with: message = $message")
             }
         }
+        level = LogLevel.ALL
+    }
 
-        defaultRequest {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            header(HttpHeaders.Authorization, "Bearer ${BuildConfig.THE_ONE_API_ACCESS_TOKEN}")
-            header(HttpHeaders.UserAgent, "Android Mock User Agent")
+    install(ResponseObserver) {
+        onResponse { response ->
+            println("providesHttpClient() called with: response = $response\n${response.status.value}")
         }
+    }
+
+    defaultRequest {
+        header(HttpHeaders.ContentType, ContentType.Application.Json)
+        header(HttpHeaders.Authorization, "Bearer ${BuildConfig.THE_ONE_API_ACCESS_TOKEN}")
+        header(HttpHeaders.UserAgent, "Android Mock User Agent")
     }
 }

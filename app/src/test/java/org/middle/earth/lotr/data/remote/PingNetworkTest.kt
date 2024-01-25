@@ -36,7 +36,7 @@ class PingNetworkTest {
 
     @Test
     fun ping() {
-        val httpClient = getHttpClient(mockEngineNoContent)
+        val httpClient = getPingHttpClient(mockEngineNoContent)
 
         val test = runBlocking {
             PingHttpService(httpClient).ping()
@@ -48,7 +48,7 @@ class PingNetworkTest {
     @Test(expected = RedirectResponseException::class)
     fun pingPermanentRedirect() {
 
-        val httpClient = getHttpClient(mockEnginePermanentRedirect)
+        val httpClient = getPingHttpClient(mockEnginePermanentRedirect)
 
         runBlocking {
             PingHttpService(httpClient).ping()
@@ -59,7 +59,7 @@ class PingNetworkTest {
 
     @Test(expected = ClientRequestException::class)
     fun pingBadRequest() {
-        val httpClient = getHttpClient(mockEngineBadRequest)
+        val httpClient = getPingHttpClient(mockEngineBadRequest)
 
         runBlocking {
             PingHttpService(httpClient).ping()
@@ -68,35 +68,37 @@ class PingNetworkTest {
 
     @Test(expected = ServerResponseException::class)
     fun pingServiceUnavailable() {
-        val httpClient = getHttpClient(mockEngineServiceUnavailable)
+        val httpClient = getPingHttpClient(mockEngineServiceUnavailable)
         runBlocking {
             PingHttpService(httpClient).ping()
         }
     }
 
-    private fun getHttpClient(mockEngine: MockEngine) = HttpClient(mockEngine) {
+}
 
-        expectSuccess = true
-        followRedirects = false
 
-        install(HttpTimeout) {
-            requestTimeoutMillis = NETWORK_TIME_OUT
-            connectTimeoutMillis = NETWORK_TIME_OUT
-            socketTimeoutMillis = NETWORK_TIME_OUT
-        }
+fun getPingHttpClient(mockEngine: MockEngine) = HttpClient(mockEngine) {
 
-        install(Logging) {
-            logger = object : Logger {
-                override fun log(message: String) {
-                    println("log() called with: message = $message")
-                }
+    expectSuccess = true
+    followRedirects = false
+
+    install(HttpTimeout) {
+        requestTimeoutMillis = NETWORK_TIME_OUT
+        connectTimeoutMillis = NETWORK_TIME_OUT
+        socketTimeoutMillis = NETWORK_TIME_OUT
+    }
+
+    install(Logging) {
+        logger = object : Logger {
+            override fun log(message: String) {
+                println("log() called with: message = $message")
             }
-            level = LogLevel.ALL
         }
+        level = LogLevel.ALL
+    }
 
-        defaultRequest {
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            header(HttpHeaders.Accept, "no-cache")
-        }
+    defaultRequest {
+        header(HttpHeaders.ContentType, ContentType.Application.Json)
+        header(HttpHeaders.Accept, "no-cache")
     }
 }
