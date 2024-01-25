@@ -42,7 +42,7 @@ class PingNetworkTest {
             PingHttpService(httpClient).ping()
         }
 
-        assertEquals(test.status == HttpStatusCode.NoContent, true)
+        assertEquals(true, test.status == HttpStatusCode.NoContent)
     }
 
     @Test(expected = RedirectResponseException::class)

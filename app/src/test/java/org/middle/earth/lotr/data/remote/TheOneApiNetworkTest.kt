@@ -46,7 +46,7 @@ class TheOneApiNetworkTest {
         runBlocking {
             val response = TheOneApiHttpService(httpClient).character(1)
             val characters = response.body<CharacterResponse>()
-            assertEquals(characters.characters.isNotEmpty(), true)
+            assertEquals(true, characters.characters.isNotEmpty())
         }
 
     }

@@ -1,18 +1,16 @@
 package org.middle.earth.lotr.data.local
 
+import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.FirebaseApp
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode
-import org.junit.Assert.*
-
 import junit.framework.TestCase
 import kotlinx.coroutines.runBlocking
-
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,27 +23,28 @@ import org.middle.earth.lotr.data.remote.mockEngineBadRequest
 import org.middle.earth.lotr.data.remote.mockEngineCharactersOk
 import org.middle.earth.lotr.data.remote.mockEngineNoContent
 import org.middle.earth.lotr.data.remote.mockEngineServiceUnavailable
-import org.middle.earth.lotr.di.DATABASE_NAME
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(minSdk = 26, maxSdk = 34)
-class MiddleEarthRepositoryTest : TestCase() {
+class MiddleEarthRepositoryTest {
 
     private lateinit var database: TheLordOfTheRingsDatabase
 
     @Before
-    public override fun setUp() {
-        FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
+    fun setUp() {
+        val context : Context = ApplicationProvider.getApplicationContext()
+
+        FirebaseApp.initializeApp(context)
 
         database = Room
-            .inMemoryDatabaseBuilder(ApplicationProvider.getApplicationContext(), TheLordOfTheRingsDatabase::class.java)
+            .inMemoryDatabaseBuilder(context, TheLordOfTheRingsDatabase::class.java)
             .build()
     }
 
     @After
-    public override fun tearDown() {
+    fun tearDown() {
         database.close()
     }
 
@@ -60,11 +59,11 @@ class MiddleEarthRepositoryTest : TestCase() {
 
         runBlocking {
             val response: HttpResponse? = repository.character(1)
-            assertEquals(response == null, false)
-            assertEquals(response!!.status == HttpStatusCode.OK, true)
+            assertEquals(false, response == null)
+            assertEquals(true , response!!.status == HttpStatusCode.OK)
 
             val characters: CharacterResponse = response.body()
-            assertEquals(characters.characters.isNotEmpty(), true)
+            assertEquals(true, characters.characters.isNotEmpty())
 
         }
     }
@@ -79,7 +78,7 @@ class MiddleEarthRepositoryTest : TestCase() {
 
         runBlocking {
             val response: HttpResponse? = repository.character(1)
-            assertEquals(response == null, true)
+            assertEquals(true, response == null)
         }
     }
     @Test
@@ -93,7 +92,7 @@ class MiddleEarthRepositoryTest : TestCase() {
 
         runBlocking {
             val response: HttpResponse? = repository.character(1)
-            assertEquals(response == null, true)
+            assertEquals(true, response == null)
         }
     }
 }
