@@ -124,7 +124,6 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("com.google.android.material:material:1.5.0")
 
-
     implementation("org.slf4j:slf4j-api:2.0.11")
     implementation("org.slf4j:slf4j-simple:2.0.11")
 
