@@ -1,10 +1,8 @@
-# TheLordOfTheRings
-Example Android Application
-
 The Lord Of The Rings
 ==================
 
 This is the repository for the [The Lord Of The Rings] app.
+
 It is a **work in progress** 🚧.
 
 **The Lord Of The Rings** is a read only functional Android app built entirely with Kotlin and Jetpack Compose. It
@@ -23,7 +21,8 @@ The app is currently in development.
 
 **The Lord Of The Rings** uses the Gradle build system and can be imported directly into
 Android Studio (It was developed using the following Android Studio Version).
-`
+
+```
 Android Studio Hedgehog | 2023.1.1 Patch 1
 Build #AI-231.9392.1.2311.11255304, built on December 26, 2023
 Runtime version: 17.0.7+0-17.0.7b1000.6-10550314 aarch64
@@ -39,15 +38,11 @@ Registry:
     ide.text.editor.with.preview.show.floating.toolbar=false
     ide.instant.shutdown=false
     ide.experimental.ui=true
-`
-
+```
 
 # Architecture
 
-The **The Lord Of The Rings** app follows the
-[official architecture guidance](https://developer.android.com/topic/architecture)
-and is described in detail in the
-[architecture learning journey](docs/ArchitectureLearningJourney.md).
+The **The Lord Of The Rings** app employs the MVI Architecture with Android.
 
 # Modularization
 
@@ -84,7 +79,3 @@ Find out more about the [UI architecture here](docs/ArchitectureLearningJourney.
 
 
 ## Compose compiler metrics
-
-# License
-
-**The Lord Of The Rings** is distributed under the terms of the 
